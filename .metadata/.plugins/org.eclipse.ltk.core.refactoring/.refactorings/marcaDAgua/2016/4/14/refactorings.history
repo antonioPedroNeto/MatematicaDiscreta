@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename compilation unit &apos;colocaMarcaDAgua.colocaMarca.java&apos; to &apos;ColocaMarca.java&apos;&#x0D;&#x0A;- Original project: &apos;marcaDAgua&apos;&#x0D;&#x0A;- Original element: &apos;colocaMarcaDAgua.colocaMarca.java&apos;&#x0D;&#x0A;- Renamed element: &apos;colocaMarcaDAgua.ColocaMarca.java&apos;" description="Rename compilation unit &apos;colocaMarca.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src&lt;colocaMarcaDAgua{colocaMarca.java" name="ColocaMarca.java" references="false" stamp="1459539171489" version="1.0"/>
+</session>
