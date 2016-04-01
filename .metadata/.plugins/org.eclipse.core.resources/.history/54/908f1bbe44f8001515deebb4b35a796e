@@ -20,7 +20,6 @@ package pixel;
 				img.setRGB(0, 1, Color.yellow.getRGB());//troca a cor do pixel (0,1)
 			
 				ImageIO.write(img, "png", new File("output.png"));//gera uma imagem com os pixels na posicao (0,0) e (0,1)
-				//obs podemos colocar uma sequencia maior de pixels
 			}catch(Exception e){
 				e.printStackTrace();
 			}

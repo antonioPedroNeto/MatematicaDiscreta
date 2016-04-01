@@ -12,15 +12,23 @@ package pixel;
 	public class ColocaPixel {
 		
 		public static void main(String[] args) {
+			/*
+			// Abre a tela para escolher a imagem do disco
+			JFileChooser fc = new JFileChooser();
+			if (fc.showOpenDialog(null) != JFileChooser.APPROVE_OPTION){ // abre um menu para escolher qual imagem vai ser utilizada
+				
+			}
+	    	// Lê a imagem
+	    	 *
+	    	 */
 			
-			File f = new File("C:\\Users\\Pedro\\Documents\\GitHub\\matematicaDiscreta\\marcaDAgua\\src\\autenticacao\\teste.png");//pega o caminho da imagem
+			File f = new File("teste.png");
 			try{
 				BufferedImage img = ImageIO.read(f);
 				img.setRGB(0, 0, Color.black.getRGB());//troca a cor do pixel (0,0)
 				img.setRGB(0, 1, Color.yellow.getRGB());//troca a cor do pixel (0,1)
 			
-				ImageIO.write(img, "png", new File("output.png"));//gera uma imagem com os pixels na posicao (0,0) e (0,1)
-				//obs podemos colocar uma sequencia maior de pixels
+				ImageIO.write(img, "png", new File("output.png"));
 			}catch(Exception e){
 				e.printStackTrace();
 			}
