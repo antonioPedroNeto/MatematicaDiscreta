@@ -12,6 +12,16 @@ public class WatermarkStamper {
 	private final int FONT_SIZE = 30;
 	private final int FONT_STYLE = Font.BOLD; 
 
+	
+	
+	/**
+	 * Metodo que cria uma imagem com a marca d agua em uma imagem
+	 * @param filePath - caminho da imagem 
+	 * @param fontColor - cor da letra da marca d agua
+	 * @param font - font da imagem
+	 * @param marcaText - texto para ser colocado na imagem
+	 * @return - retorna true para imagem marcada com sucesso ou false para nao marcada
+	 */
 	public boolean createStampedImage(String filePath,Color fontColor, String font, String marcaText) {
 
 		File file = new File(filePath); // cria um objeto para guardar o caminho da imagem
@@ -44,7 +54,7 @@ public class WatermarkStamper {
 			File fileout = new File(filePath);//diretorio onde a marca d agua sera inserida
 			
 			try {
-				return ImageIO.write(bufferedImage, "jpg", fileout);
+				return ImageIO.write(bufferedImage, "png", fileout);
 			} catch (IOException e) {
 				e.printStackTrace();
 				return false;
