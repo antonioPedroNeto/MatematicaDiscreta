@@ -4,17 +4,31 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Path;
 
 import javax.imageio.ImageIO;
+import javax.naming.spi.DirectoryManager;
 /**
  * 
  * A classe ainda nao esta autenticando apenas esta com um exemplo de como percorrer uma imagem
  *
  */
 public class Autentica {
+	
+	
+	public void authenticate(String path){
+		
+		File directory = new File(path);
+		File[] listaArquivos = directory.listFiles();
+		for (File file : listaArquivos) {
+			if file.
+			
+		}
+		
+	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 		Autentica m = new Autentica();//criar um objeto do tipo autentica
 		try {
