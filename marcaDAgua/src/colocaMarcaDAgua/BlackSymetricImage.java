@@ -3,16 +3,19 @@ package colocaMarcaDAgua;
 import java.io.*;
 import java.awt.*;
 import java.awt.image.*;
+
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 public class BlackSymetricImage {
 	private final int FONT_SIZE = 30;
 	private final int FONT_STYLE = Font.BOLD;
 	
-	public BufferedImage generateSymetricImage(String filePath,Color fontColor, String font, String marcaText) {
+	public boolean generateSymetricImage(String filePath,Color fontColor, String font, String marcaText) throws IOException {
 		File file = new File(filePath); // Caminho da imagem original
 		if (!file.exists()) {
 			System.out.println("Arquivo de Imagem nao encontrado.");//Imagem nao existe
+			return false;
         }
         
         /**
@@ -48,10 +51,12 @@ public class BlackSymetricImage {
         g2d.drawString(marcaText, centeredStringWidth, imagemOriginal.getIconHeight()/2);
         g2d.dispose();
         
-        return bufferedSymetricImage;
+
+        File fileout = new File("/home/pedro/workspace/matematicaDiscreta/marcaDAgua/outputPreta.png");//diretorio onde a marca d agua sera inserida
+        ImageIO.write(bufferedSymetricImage, "png", fileout);
         
-}
-
-
+        return true;
+        
+	}
 	
 }
