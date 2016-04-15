@@ -51,7 +51,7 @@ public class WatermarkStamper {
 			g2d.drawString(marcaText, centeredStringWidth, icon.getIconHeight()/ 2);
 			g2d.dispose();                        
 
-			File fileout = new File(filePath);//diretorio onde a marca d agua sera inserida
+			File fileout = new File("/home/pedro/workspace/matematicaDiscreta/marcaDAgua/output.png");//diretorio onde a marca d agua sera inserida
 			
 			try {
 				return ImageIO.write(bufferedImage, "png", fileout);
