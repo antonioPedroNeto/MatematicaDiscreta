@@ -1,9 +1,12 @@
 package menu;
 
 import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
-
+import autenticacao.Diretorios;
 import autenticacao.ValidadorMarcadAgua;
 import colocaMarcaDAgua.BlackSymetricImage;
 import colocaMarcaDAgua.WatermarkStamper;
@@ -12,85 +15,98 @@ import colocaMarcaDAgua.WatermarkStamper;
  * Menu Iniciar que pega as caracteristicas da imagem
  *
  */
+
 public class Menu {
 
-	private WatermarkStamper stamper = new WatermarkStamper();
-	private BlackSymetricImage fundoPreto = new BlackSymetricImage();
-	private ValidadorMarcadAgua validador = new ValidadorMarcadAgua();
+	static WatermarkStamper stamper = new WatermarkStamper();
+	static BlackSymetricImage fundoPreto = new BlackSymetricImage();
+	static ValidadorMarcadAgua validador = new ValidadorMarcadAgua();
+	static Scanner input = new Scanner(System.in);
+	static final String BREAK_LINE = System.getProperty("line.separator");
 	
-	public static void main(String[] args){
-		Menu menu = new Menu();
+	static Color COR_FONTE = Color.PINK;
+	static final String FONTE = "Comic Sans";
+	
+	static final int INSERIR_MARCA = 1;
+	static final int VERIFICAR_IMAGENS = 2;
+	static final int SAIR = 3;	
 
-		Scanner input = new Scanner(System.in);
-		System.out.println("Digite a frase para colocar na marca d agua");
-		String marcaText = input.nextLine();//texto que será a marca d agua
+	
+	public static void main(String[] args) throws IOException{
+		int opcao;
 		
-		System.out.println("Digite o caminho da sua imagem");
-		String filePath = input.nextLine();//caminho da imagem para colocar a marca d agua
+		String tela = "[Menu]"+BREAK_LINE+
+				"Opções :"+BREAK_LINE+
+				"[1] Inserir Marca Numa Imagem."+BREAK_LINE+
+				"[2] Verificar Marca em várias Imagens."+BREAK_LINE+
+				"[3] Sair."+BREAK_LINE;
 		
-		//System.out.println("Digite a cor do texto");
-		Color fontColor = Color.BLUE;//por enquanto esta uma cor nao definida pelo usuario
+		System.out.println(tela);
 		
-		System.out.println("Digite a fonte");
-		String font = input.nextLine();//font do texto da marca de agua
+		opcao = input.nextInt();
+		input.nextLine();
 		
-		try {
-			menu.criaMarca(filePath, fontColor, font, marcaText);//chama o metodo criaMarca para criar uma marca d agua na imagem passada no filePath
+		while(opcao != SAIR){
 			
-		System.out.println("Deseja verificar se uma imagem possui a marca de agua inserida ?");
-		
-		String verifica = input.nextLine();//salva a decisao do usuario para verificar ou nao uma imagem
-		if(verifica.equals("sim")){
-			System.out.println("Digite o caminho da imagem que voce deseja comparar");	
-			filePath = input.nextLine(); // pega o caminho da imagem que deseja ser comparada
-											//a ideia desse caminho aki abaixo é q seja um caminho padrao do sistema operacional
-			menu.autenticacao(filePath);//chama o metodo autentica
-			}//fecha if						esse caminho acima é o caminho da imagem da marca de agua preta
-		} catch (Exception e) {
+			switch (opcao) {
 			
-			e.printStackTrace();
-		}//fecha try-catch
+				case INSERIR_MARCA:
+				
+					System.out.println("Digite o caminho da sua imagem");
+					String filePath = input.nextLine();//caminho da imagem para colocar a marca d agua
+				
+					System.out.println("Digite a frase para colocar na marca d agua");
+					String marcaText = input.nextLine();//texto que será a marca d agua
+				
+					stamper.createStampedImage(filePath, COR_FONTE, FONTE, marcaText);
+					//chama o metodo criaMarca para criar uma marca d agua na imagem passada no filePath
+					break;
+				
+				case VERIFICAR_IMAGENS:
+				
+					System.out.println("Digite o caminho das imagens que voce deseja comparar: ");
+					String targetDir = input.nextLine(); // pega o caminho das imagens a serem comparadas
+					
+					File diretorio = new File(targetDir);
+					
+					System.out.println("Digite o texto que representa a marca d'agua: ");
+					String targetText = input.nextLine();
+					
+					ArrayList<String> imagens = Diretorios.getAllImages(diretorio);
+										
+					for (String caminhoImagem : imagens) {
+						
+						BufferedImage imagemPreta = fundoPreto.generateSymetricImage(caminhoImagem, COR_FONTE, FONTE, targetText);
+						try {
+							validador.validar(caminhoImagem,imagemPreta, COR_FONTE, FONTE);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						
+					}
+					
+					break;
+					
+				case SAIR:
+					break;
+					
+				default:
+					System.out.println("Opcao invalida, tente novamente.");
+					break;
+			}
+			System.out.println(tela);
+			opcao = input.nextInt();
+			
+		}
+		
+
+
+		
+		
+	}
 	
 		
 		
-	}//fecha main
+
 	
-	/**
-	 * Metodo que delega a criacao da imagem com a marca de agua
-	 * @param filePath - caminho do arquivo
-	 * @param fontColor - cor do texto(marca de agua)
-	 * @param font - tipo do texto(marca de agua)
-	 * @param marcaText - texto(marca de agua)
-	 * @return retorna true para marca de agua adicionada com sucesso ou false para nao adicionada
-	 * @throws IOException 
-	 */
-	public boolean criaMarca(String filePath, Color fontColor, String font, String marcaText) throws IOException{
-		criaImagemFundoPreto(filePath, fontColor, font, marcaText);//cria a imagem preta com a marca de agua
-		return stamper.createStampedImage(filePath, fontColor, font, marcaText);//cria a imagem com a marca de agua		
-	}//fecha criaMarca
-	
-	/**
-	 * Metodo que delega a criacao da imagem com fundo preto
-	 * @param filePath - caminho do arquivo
-	 * @param fontColor - cor do texto(marca de agua)
-	 * @param font - tipo do texto(marca de agua)
-	 * @param marcaText - texto(marca de agua)
-	 * @return retorna true para imagem com fundo preto criado com sucesso ou false para nao criado
-	 * @throws IOException
-	 */
-	private boolean criaImagemFundoPreto(String filePath, Color fontColor, String font, String marcaText) throws IOException{
-		return fundoPreto.generateSymetricImage(filePath, fontColor, font, marcaText);//cria a imagem preta com a marca de agua
-	}//fecha criaImagemFundoPreto
-	
-	/**
-	 * Metodo que delega a tarefa de autenticar uma imagem
-	 * @param imagemCandidata - e' a imagem que e' candidata ter a marca de agua
-	 * @param imagemDeComparacao - imagem com o fundo preto gerada anteriormente
-	 * @return retorna um boolean para true para imagem com marca de agua ou false para imagem sem marca de agua
-	 * @throws InterruptedException
-	 */
-	public boolean autenticacao(String imagemCandidata) throws InterruptedException{
-		return validador.image(imagemCandidata);//valida se a marca de agua esta na imagem passada no parametro imagemCandidata
-	}//vecha autenticacao
-	
-}//fecha class
+}

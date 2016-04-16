@@ -12,9 +12,7 @@ import autenticacao.Diretorios;
 public class WatermarkStamper {
 
 	private final int FONT_SIZE = 30;
-	private final int FONT_STYLE = Font.BOLD; 
-
-	
+	private final int FONT_STYLE = Font.BOLD;
 	
 	/**
 	 * Metodo que cria uma imagem com a marca d agua em uma imagem
@@ -41,16 +39,26 @@ public class WatermarkStamper {
 			AlphaComposite alpha = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f);
 
 			g2d.setComposite(alpha);
-			g2d.setColor(fontColor);
-
+			
 			g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
 			g2d.setFont(new Font(font, FONT_STYLE, FONT_SIZE));
 
 			int stringLen = (int) g2d.getFontMetrics().getStringBounds(marcaText, g2d).getWidth();//Largura da String Marca D'agua
-			int centeredStringWidth = icon.getIconWidth()/2 - stringLen/2;//Coordenada centralizada da string na imagem.
-
-			g2d.drawString(marcaText, centeredStringWidth, icon.getIconHeight()/ 2);
+			int centeredStringWidth = icon.getIconWidth() / 2 - stringLen / 2;//Coordenada centralizada da string na imagem.
+			int centeredStringHeight = icon.getIconHeight() / 2;
+			
+			//Desenha Borda para a Marca d'agua
+			g2d.setColor(Color.BLACK);
+			
+			g2d.drawString(marcaText, ShiftWest(centeredStringWidth, 1), ShiftNorth(centeredStringHeight, 1));
+			g2d.drawString(marcaText, ShiftWest(centeredStringWidth, 1), ShiftSouth(centeredStringHeight, 1));
+			g2d.drawString(marcaText, ShiftEast(centeredStringWidth, 1), ShiftNorth(centeredStringHeight, 1));
+			g2d.drawString(marcaText, ShiftEast(centeredStringWidth, 1), ShiftSouth(centeredStringHeight, 1));
+			
+			//Desenha a Marca d'agua
+			g2d.setColor(fontColor);
+			g2d.drawString(marcaText, centeredStringWidth, centeredStringHeight);
 			g2d.dispose();                        
 
 			File fileout = new File(Diretorios.imagemProcessada);//diretorio onde a marca d agua sera inserida
@@ -63,4 +71,17 @@ public class WatermarkStamper {
 			}
 
 	}
+	
+	int ShiftNorth(int p, int distance) {
+		   return (p - distance);
+		   }
+	int ShiftSouth(int p, int distance) {
+		   return (p + distance);
+		   }
+	int ShiftEast(int p, int distance) {
+		   return (p + distance);
+		   }
+	int ShiftWest(int p, int distance) {
+		   return (p - distance);
+		   }
 }
