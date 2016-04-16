@@ -23,7 +23,6 @@ public class Menu {
 	static ValidadorMarcadAgua validador = new ValidadorMarcadAgua();
 	static Scanner input = new Scanner(System.in);
 	static final String BREAK_LINE = System.getProperty("line.separator");
-	
 	static Color COR_FONTE = Color.PINK;
 	static final String FONTE = "Comic Sans";
 	
@@ -39,10 +38,12 @@ public class Menu {
 				"Opções :"+BREAK_LINE+
 				"[1] Inserir Marca Numa Imagem."+BREAK_LINE+
 				"[2] Verificar Marca em várias Imagens."+BREAK_LINE+
-				"[3] Sair."+BREAK_LINE;
+				"[3] Sair."+BREAK_LINE+
+				"Opção: ";
 		
 		System.out.println(tela);
 		
+
 		opcao = input.nextInt();
 		input.nextLine();
 		
@@ -53,10 +54,10 @@ public class Menu {
 				case INSERIR_MARCA:
 				
 					System.out.println("Digite o caminho da sua imagem");
-					String filePath = input.nextLine();//caminho da imagem para colocar a marca d agua
+					String filePath = input.nextLine();//Caminho da imagem para colocar a marca d agua
 				
 					System.out.println("Digite a frase para colocar na marca d agua");
-					String marcaText = input.nextLine();//texto que será a marca d agua
+					String marcaText = input.nextLine();//Texto que será a marca d agua
 				
 					stamper.createStampedImage(filePath, COR_FONTE, FONTE, marcaText);
 					//chama o metodo criaMarca para criar uma marca d agua na imagem passada no filePath
@@ -65,7 +66,7 @@ public class Menu {
 				case VERIFICAR_IMAGENS:
 				
 					System.out.println("Digite o caminho das imagens que voce deseja comparar: ");
-					String targetDir = input.nextLine(); // pega o caminho das imagens a serem comparadas
+					String targetDir = input.nextLine(); //Caminho das imagens a serem comparadas
 					
 					File diretorio = new File(targetDir);
 					
@@ -99,9 +100,7 @@ public class Menu {
 			
 		}
 		
-
-
-		
+		System.out.println("Fim da Operação");	
 		
 	}
 	

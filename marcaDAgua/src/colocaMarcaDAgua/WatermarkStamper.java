@@ -64,7 +64,15 @@ public class WatermarkStamper {
 			File fileout = new File(Diretorios.imagemProcessada);//diretorio onde a marca d agua sera inserida
 			
 			try {
-				return ImageIO.write(bufferedImage, "png", fileout);
+				if(file.getName().toLowerCase().endsWith("png")){
+					return ImageIO.write(bufferedImage, "png", fileout);
+
+				}
+				else if(file.getName().toLowerCase().endsWith("jpg")){
+					return ImageIO.write(bufferedImage, "jpg", fileout);
+
+				}
+				else return false;
 			} catch (IOException e) {
 				e.printStackTrace();
 				return false;
