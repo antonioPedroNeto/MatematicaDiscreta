@@ -44,7 +44,7 @@ public class Menu {
 			System.out.println("Digite o caminho da imagem que voce deseja comparar");	
 			filePath = input.nextLine(); // pega o caminho da imagem que deseja ser comparada
 											//a ideia desse caminho aki abaixo é q seja um caminho padrao do sistema operacional
-			menu.autenticacao(filePath, "/home/pedro/workspace/matematicaDiscreta/marcaDAgua/outputPreta.png");//chama o metodo autentica
+			menu.autenticacao(filePath);//chama o metodo autentica
 			}//fecha if						esse caminho acima é o caminho da imagem da marca de agua preta
 		} catch (Exception e) {
 			
@@ -89,8 +89,8 @@ public class Menu {
 	 * @return retorna um boolean para true para imagem com marca de agua ou false para imagem sem marca de agua
 	 * @throws InterruptedException
 	 */
-	public boolean autenticacao(String imagemCandidata, String imagemDeComparacao) throws InterruptedException{
-		return validador.image(imagemCandidata, imagemDeComparacao);//valida se a marca de agua esta na imagem passada no parametro imagemCandidata
+	public boolean autenticacao(String imagemCandidata) throws InterruptedException{
+		return validador.image(imagemCandidata);//valida se a marca de agua esta na imagem passada no parametro imagemCandidata
 	}//vecha autenticacao
 	
 }//fecha class

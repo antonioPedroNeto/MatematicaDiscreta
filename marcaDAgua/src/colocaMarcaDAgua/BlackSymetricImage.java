@@ -7,6 +7,8 @@ import java.awt.image.*;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+import autenticacao.Diretorios;
+
 public class BlackSymetricImage {
 	private final int FONT_SIZE = 30;
 	private final int FONT_STYLE = Font.BOLD;
@@ -51,8 +53,7 @@ public class BlackSymetricImage {
         g2d.drawString(marcaText, centeredStringWidth, imagemOriginal.getIconHeight()/2);
         g2d.dispose();
         
-
-        File fileout = new File("/home/pedro/workspace/matematicaDiscreta/marcaDAgua/outputPreta.png");//diretorio onde a marca d agua sera inserida
+        File fileout = new File(Diretorios.imagemDeComparacao); //diretorio onde a marca d agua sera inserida
         ImageIO.write(bufferedSymetricImage, "png", fileout);
         
         return true;

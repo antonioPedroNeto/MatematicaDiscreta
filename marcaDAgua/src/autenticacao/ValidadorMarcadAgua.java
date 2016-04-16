@@ -19,9 +19,9 @@ public class ValidadorMarcadAgua {
 	 * Metodo que percorre uma imagem como um vetor e mostra o rgb de cada pixel
 	 * @throws InterruptedException
 	 */
-	public boolean image(String imagemCandidata, String imagemDeComparacao) throws InterruptedException{
+	public boolean image(String imagemCandidata) throws InterruptedException {
 		
-		File imagemPreta = new File(imagemDeComparacao);//cria um objeto do tipo file para guardar o caminho da imagem
+		File imagemPreta = new File(Diretorios.imagemDeComparacao);//cria um objeto do tipo file para guardar o caminho da imagem
 		File imagemMarcada = new File(imagemCandidata);//cria um objeto do tipo file para guardar o caminho da imagem
 
 		Color imagemPretaColor; //cria uma referencia do tipo Color
