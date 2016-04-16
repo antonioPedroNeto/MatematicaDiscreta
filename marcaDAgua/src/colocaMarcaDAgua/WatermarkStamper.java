@@ -10,9 +10,10 @@ import javax.swing.ImageIcon;
 import autenticacao.Diretorios;
 
 public class WatermarkStamper {
-
-	private final int FONT_SIZE = 30;
-	private final int FONT_STYLE = Font.BOLD;
+	
+	public int contador = 0;
+	private final int FONT_SIZE = 30;//tamanho da letra da marca d agua
+	private final int FONT_STYLE = Font.BOLD;//constante para a cor da marca d agua
 	
 	/**
 	 * Metodo que cria uma imagem com a marca d agua em uma imagem
@@ -27,7 +28,7 @@ public class WatermarkStamper {
 		File file = new File(filePath); // cria um objeto para guardar o caminho da imagem
 		if (!file.exists()) {
 			System.out.println("Arquivo de Imagem nao Encontrado");
-		}
+		}//fecha if
 
 
 			ImageIcon icon = new ImageIcon(file.getPath()); // cria um objeto de imagem representando a imagem do caminho especificado.
@@ -51,45 +52,74 @@ public class WatermarkStamper {
 			//Desenha Borda para a Marca d'agua
 			g2d.setColor(Color.BLACK);
 			
-			g2d.drawString(marcaText, ShiftWest(centeredStringWidth, 1), ShiftNorth(centeredStringHeight, 1));
-			g2d.drawString(marcaText, ShiftWest(centeredStringWidth, 1), ShiftSouth(centeredStringHeight, 1));
-			g2d.drawString(marcaText, ShiftEast(centeredStringWidth, 1), ShiftNorth(centeredStringHeight, 1));
-			g2d.drawString(marcaText, ShiftEast(centeredStringWidth, 1), ShiftSouth(centeredStringHeight, 1));
+			g2d.drawString(marcaText, shiftWest(centeredStringWidth, 1), shiftNorth(centeredStringHeight, 1));
+			g2d.drawString(marcaText, shiftWest(centeredStringWidth, 1), shiftSouth(centeredStringHeight, 1));
+			g2d.drawString(marcaText, shiftEast(centeredStringWidth, 1), shiftNorth(centeredStringHeight, 1));
+			g2d.drawString(marcaText, shiftEast(centeredStringWidth, 1), shiftSouth(centeredStringHeight, 1));
 			
 			//Desenha a Marca d'agua
 			g2d.setColor(fontColor);
 			g2d.drawString(marcaText, centeredStringWidth, centeredStringHeight);
 			g2d.dispose();                        
 
-			File fileout = new File(Diretorios.imagemProcessada);//diretorio onde a marca d agua sera inserida
-			
+			File fileout = new File(Diretorios.imagemProcessada+"imagemComMarca("+contador+").png");//diretorio onde a marca d agua sera inserida
+			contador += 1;
 			try {
 				if(file.getName().toLowerCase().endsWith("png")){
-					return ImageIO.write(bufferedImage, "png", fileout);
+					return ImageIO.write(bufferedImage, "png", fileout);//salva a imagem com a marca d agua
 
-				}
-				else if(file.getName().toLowerCase().endsWith("jpg")){
-					return ImageIO.write(bufferedImage, "jpg", fileout);
+				}else if(file.getName().toLowerCase().endsWith("jpg")){
+					return ImageIO.write(bufferedImage, "jpg", fileout);//salva a imagem com a marca d agua
 
-				}
-				else return false;
+				}else{
+					return false;
+				}//fecha else
+				
 			} catch (IOException e) {
 				e.printStackTrace();
 				return false;
-			}
+			}//fecha try-catch
 
-	}
+	}//fecha createStampedImage
 	
-	int ShiftNorth(int p, int distance) {
-		   return (p - distance);
-		   }
-	int ShiftSouth(int p, int distance) {
-		   return (p + distance);
-		   }
-	int ShiftEast(int p, int distance) {
-		   return (p + distance);
-		   }
-	int ShiftWest(int p, int distance) {
-		   return (p - distance);
-		   }
-}
+	/**
+	 * Metodo que desloga para o norte
+	 * @param p
+	 * @param distance
+	 * @return
+	 */
+	public int shiftNorth(int p, int distance) {
+	   return (p - distance);
+	}//fecha ShiftNorth
+	
+	/**
+	 * Metodo que desloca para Sul
+	 * @param p
+	 * @param distance
+	 * @return
+	 */
+	public int shiftSouth(int p, int distance) {
+	   return (p + distance);
+	}//fecha ShiftSouth
+	
+	/**
+	 * Metodo que desloca para o leste
+	 * @param p - valor fixo
+	 * @param distance
+	 * @return
+	 */
+	public int shiftEast(int p, int distance) {
+	   return (p + distance);
+	}//fecha ShiftEast
+	
+	/**
+	 * Metodo que desloca para o oeste
+	 * @param p
+	 * @param distance
+	 * @return
+	 */
+	public int shiftWest(int p, int distance) {
+	   return (p - distance);
+	}//fecha ShiftWest
+	
+}//fecha class
