@@ -41,13 +41,11 @@ public class Menu {
 				"[3] Sair."+BREAK_LINE+
 				"Opção: ";
 		
-		System.out.println(tela);
-		
+		do{
 
-		opcao = input.nextInt();
-		input.nextLine();
-		
-		while(opcao != SAIR){
+			System.out.println(tela);
+			opcao = input.nextInt();
+			input.nextLine();
 			
 			switch (opcao) {
 			
@@ -58,7 +56,7 @@ public class Menu {
 				
 					System.out.println("Digite a frase para colocar na marca d agua");
 					String marcaText = input.nextLine();//Texto que será a marca d agua
-				
+
 					stamper.createStampedImage(filePath, COR_FONTE, FONTE, marcaText);
 					//chama o metodo criaMarca para criar uma marca d agua na imagem passada no filePath
 					break;
@@ -66,25 +64,25 @@ public class Menu {
 				case VERIFICAR_IMAGENS:
 				
 					System.out.println("Digite o caminho das imagens que voce deseja comparar: ");
-					String targetDir = input.nextLine(); //Caminho das imagens a serem comparadas
+					String targetDir = input.nextLine(); //pega o caminho das imagens a serem comparadas
 					
-					File diretorio = new File(targetDir);
+					File diretorio = new File(targetDir);//cria um objeto file com o caminho especificado acima
 					
 					System.out.println("Digite o texto que representa a marca d'agua: ");
-					String targetText = input.nextLine();
+					String targetText = input.nextLine();//pega a marca d agua q sera verificada
 					
-					ArrayList<String> imagens = Diretorios.getAllImages(diretorio);
+					ArrayList<String> imagens = Diretorios.getAllImages(diretorio);//adiciona a referencia um arraylist retornado pelo metodo getAllImages 
 										
-					for (String caminhoImagem : imagens) {
+					for (String caminhoImagem : imagens) {//percorre todo o array list 
 						
-						BufferedImage imagemPreta = fundoPreto.generateSymetricImage(caminhoImagem, COR_FONTE, FONTE, targetText);
+						BufferedImage imagemPreta = fundoPreto.generateSymetricImage(caminhoImagem, COR_FONTE, FONTE, targetText);//adiciona a referencia uma imagem de mesmo tamanho com fundo preto
 						try {
-							validador.validar(caminhoImagem,imagemPreta, COR_FONTE, FONTE);
+							validador.validar(caminhoImagem,imagemPreta, COR_FONTE, FONTE);//validando a imagem atual do for
 						} catch (Exception e) {
 							e.printStackTrace();
-						}
+						}//fecha try catch
 						
-					}
+					}//fecha for
 					
 					break;
 					
@@ -94,18 +92,13 @@ public class Menu {
 				default:
 					System.out.println("Opcao invalida, tente novamente.");
 					break;
-			}
-			System.out.println(tela);
-			opcao = input.nextInt();
+			}//fecha switch
+
 			
-		}
+		}while(opcao != SAIR);//fecha while
 		
 		System.out.println("Fim da Operação");	
 		
-	}
+	}//fecha main
 	
-		
-		
-
-	
-}
+}//fecha class
