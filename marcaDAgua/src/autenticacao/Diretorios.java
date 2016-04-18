@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Diretorios {
 	
 	public static String FILE_SEPARATOR = System.getProperties().getProperty("file.separator");
-	public static String THIS_FOLDER = new File("..").getAbsolutePath();
+	public static String THIS_FOLDER = new File(".").getAbsolutePath();
 	public static String BASE_PATH = THIS_FOLDER + FILE_SEPARATOR + "Output" + FILE_SEPARATOR;
 	public static final String imagemProcessada = BASE_PATH;
 
