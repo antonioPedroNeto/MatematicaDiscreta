@@ -5,20 +5,15 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
 
-/**
- * 
- * A classe ainda nao esta autenticando apenas esta com um exemplo de como percorrer uma imagem
- *
- */
+
 public class ValidadorMarcadAgua {
 	
 	private final Color COR_DE_FUNDO = Color.BLACK;
 	
 	/**
 	 * Metodo que percorre uma imagem como um vetor e mostra o rgb de cada pixel
-	 * @throws InterruptedException
 	 */
-	public boolean validar(String filePath,BufferedImage imagemPretaBuff,Color COR_FONTE, String FONTE) throws Exception {
+	public boolean validar(String filePath,BufferedImage imagemPretaBuff,Color COR_FONTE, String FONTE){
 
 		double pixeisTotal = 0;
 		double pixeisDiff = 0;	
@@ -27,10 +22,9 @@ public class ValidadorMarcadAgua {
 			File imagemMarcada = new File(filePath); // Caminho da imagem original
 			
 			if (!imagemMarcada.exists()) {
-				System.out.println("Arquivo de Imagem nao encontrado.");//Imagem nao existe
+				System.out.println("Arquivo de Imagem nao encontrado.");//O arquivo nao existe
 				return false;
-				// ou Throw Exception <-
-	        }//fecha if
+	        }
 			
 			BufferedImage imagemMarcadaBuff = ImageIO.read(imagemMarcada);
 
@@ -47,20 +41,17 @@ public class ValidadorMarcadAgua {
 						if (!(imagemMarcadaColor.equals(imagemPretaColor))) {//compara a cor do pixel nas duas imagens
 							pixeisDiff = pixeisDiff + 1;
 							
-						}//fecha if
-						
-					}//fecha if
-					
-				}//fecha for j
-				
-			}//fecha for i
+						}						
+					}					
+				}				
+			}	
 			
 			double media = (pixeisDiff / pixeisTotal) * 100; //calcula a media de erros ao redor da Marca d'agua
-			if(media >= 35){
+			if(media >= 2){
 				
 				String resultado;
 				
-				resultado = "A imagem "+imagemMarcada.getName()+" nao contem a marca!";
+				resultado = "A imagem "+imagemMarcada.getName()+" nao contem a marca d'agua!";
 				resultado = resultado + String.format(" (Margem de erro: %.2f %%)", media);
 				
 				System.out.println(resultado);
@@ -69,18 +60,18 @@ public class ValidadorMarcadAgua {
 				
 				String resultado;
 				
-				resultado = "A imagem "+imagemMarcada.getName()+" tem a marca dagua!!";
-				resultado = resultado + String.format(" (Margem de erro: %.2f %%)", media);
+				resultado = "A imagem "+imagemMarcada.getName()+" contem a marca d'agua!";
+				//resultado = resultado + String.format(" (Margem de erro: %.2f %%)", media);
 				
 				System.out.println(resultado);
-			}//fecha else
+			}
 		
 			
 		} catch (Exception e) {
-			System.out.println("erro: "+ e.getMessage());//mostra a mensagem caso tenha erro
+			System.out.println("Erro: "+ e.getMessage());
 			return false;
-		}//fecha try-catch
+		}
 		return true;		
-	}//fecha validar
+	}
 
-}//fecha class
+}

@@ -1,11 +1,17 @@
 package colocaMarcaDAgua;
 
-import java.io.*;
-import java.awt.*;
-import java.awt.image.*;
+import java.awt.AlphaComposite;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import javax.swing.ImageIcon;
 
 public class BlackSymetricImage {
+	
 	private final int FONT_SIZE = 30;
 	private final int FONT_STYLE = Font.BOLD;
 	
@@ -16,7 +22,6 @@ public class BlackSymetricImage {
 		if (!file.exists()) {
 			System.out.println("Arquivo de Imagem nao encontrado.");//Imagem nao existe
 			return null;
-			// ou Throw Exception <-
         }
         
         /**
@@ -49,36 +54,13 @@ public class BlackSymetricImage {
         int stringLen = (int) g2d.getFontMetrics().getStringBounds(marcaText, g2d).getWidth();//Largura da String Marca D'agua
 		int centeredStringWidth = imagemOriginal.getIconWidth()/2 - stringLen/2;//Coordenada centralizada da string na imagem.
 		int centeredStringHeight = imagemOriginal.getIconHeight()/ 2;
-		
-		//Desenha Borda para a Marca d'agua
-		g2d.setColor(Color.BLACK);
-		
-		g2d.drawString(marcaText, ShiftWest(centeredStringWidth, 1), ShiftNorth(centeredStringHeight, 1));
-		g2d.drawString(marcaText, ShiftWest(centeredStringWidth, 1), ShiftSouth(centeredStringHeight, 1));
-		g2d.drawString(marcaText, ShiftEast(centeredStringWidth, 1), ShiftNorth(centeredStringHeight, 1));
-		g2d.drawString(marcaText, ShiftEast(centeredStringWidth, 1), ShiftSouth(centeredStringHeight, 1));
-		
+				
 		//Desenha a Marca d'agua
-		g2d.setColor(fontColor);
 		g2d.drawString(marcaText, centeredStringWidth, centeredStringHeight);
-		
         g2d.dispose();
         
         return bufferedSymetricImage;
         
 	}
-	
-	int ShiftNorth(int p, int distance) {
-		   return (p - distance);
-		   }
-	int ShiftSouth(int p, int distance) {
-		   return (p + distance);
-		   }
-	int ShiftEast(int p, int distance) {
-		   return (p + distance);
-		   }
-	int ShiftWest(int p, int distance) {
-		   return (p - distance);
-		   }
 	
 }
